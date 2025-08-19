@@ -1,0 +1,333 @@
+:root {
+  --color-white: #FFFFFF;
+  --color-pink-100: #EE2F80;
+  --color-pink-10: #FEEBF3;
+  --color-pink-30: #FAC1D9;
+  --color-pink-10: #FEEFEB;
+  --color-orange-30: #FBCEC1;
+  --color-orange-10: #FEEFEB;
+  --color-green-30: #00DCB4;
+  --color-green-10: #E6FCF8;
+  --color-blue-100: #000B30;
+  --color-blue-10: #E7EDFD;
+  --color-gray-50: #808598;
+  --color-gray-20: #CCCED6;
+  --color-gray-10: #F2F3F5;
+}
+
+body {
+  display: flex;
+  background-color: var(--color-white);
+  flex-direction: column;
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100vw;
+  box-sizing: border-box;
+  align-items: flex-start;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+#modalOpacity {
+  display: none;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+.new-task {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  background: var(--color-white);
+  padding: 15px 20px 15px 20px;
+  box-sizing: border-box;
+  width: 420px;
+  height: 700px;
+  z-index: 2;
+  gap: 15px;
+}
+.new-task .new-task__input-name,
+.new-task .new-task__input-desc,
+.new-task .new-task__date,
+.new-task .new-task__tags {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 5px;
+}
+.new-task .new-task__input-name #inputDesc,
+.new-task .new-task__input-desc #inputDesc,
+.new-task .new-task__date #inputDesc,
+.new-task .new-task__tags #inputDesc {
+  resize: none;
+}
+.new-task .new-task__input-name input,
+.new-task .new-task__input-name textarea,
+.new-task .new-task__input-name .new-task__tags-pick,
+.new-task .new-task__input-desc input,
+.new-task .new-task__input-desc textarea,
+.new-task .new-task__input-desc .new-task__tags-pick,
+.new-task .new-task__date input,
+.new-task .new-task__date textarea,
+.new-task .new-task__date .new-task__tags-pick,
+.new-task .new-task__tags input,
+.new-task .new-task__tags textarea,
+.new-task .new-task__tags .new-task__tags-pick {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-gray-20);
+  border-radius: 8px;
+  min-height: 30px;
+  box-sizing: border-box;
+  padding-left: 10px;
+  padding-right: 10px;
+  gap: 5px;
+}
+.new-task .new-task__input-name input .new-task__tag-btn,
+.new-task .new-task__input-name textarea .new-task__tag-btn,
+.new-task .new-task__input-name .new-task__tags-pick .new-task__tag-btn,
+.new-task .new-task__input-desc input .new-task__tag-btn,
+.new-task .new-task__input-desc textarea .new-task__tag-btn,
+.new-task .new-task__input-desc .new-task__tags-pick .new-task__tag-btn,
+.new-task .new-task__date input .new-task__tag-btn,
+.new-task .new-task__date textarea .new-task__tag-btn,
+.new-task .new-task__date .new-task__tags-pick .new-task__tag-btn,
+.new-task .new-task__tags input .new-task__tag-btn,
+.new-task .new-task__tags textarea .new-task__tag-btn,
+.new-task .new-task__tags .new-task__tags-pick .new-task__tag-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 46px;
+  height: 22px;
+  border: none;
+  border-radius: 8px;
+}
+.new-task .new-task__input-name input .new-task__tag-btn--mid,
+.new-task .new-task__input-name textarea .new-task__tag-btn--mid,
+.new-task .new-task__input-name .new-task__tags-pick .new-task__tag-btn--mid,
+.new-task .new-task__input-desc input .new-task__tag-btn--mid,
+.new-task .new-task__input-desc textarea .new-task__tag-btn--mid,
+.new-task .new-task__input-desc .new-task__tags-pick .new-task__tag-btn--mid,
+.new-task .new-task__date input .new-task__tag-btn--mid,
+.new-task .new-task__date textarea .new-task__tag-btn--mid,
+.new-task .new-task__date .new-task__tags-pick .new-task__tag-btn--mid,
+.new-task .new-task__tags input .new-task__tag-btn--mid,
+.new-task .new-task__tags textarea .new-task__tag-btn--mid,
+.new-task .new-task__tags .new-task__tags-pick .new-task__tag-btn--mid {
+  background: var(--color-gray-50);
+  color: var(--color-white);
+}
+.new-task .new-task__input-name input .new-task__tag-btn--high,
+.new-task .new-task__input-name textarea .new-task__tag-btn--high,
+.new-task .new-task__input-name .new-task__tags-pick .new-task__tag-btn--high,
+.new-task .new-task__input-desc input .new-task__tag-btn--high,
+.new-task .new-task__input-desc textarea .new-task__tag-btn--high,
+.new-task .new-task__input-desc .new-task__tags-pick .new-task__tag-btn--high,
+.new-task .new-task__date input .new-task__tag-btn--high,
+.new-task .new-task__date textarea .new-task__tag-btn--high,
+.new-task .new-task__date .new-task__tags-pick .new-task__tag-btn--high,
+.new-task .new-task__tags input .new-task__tag-btn--high,
+.new-task .new-task__tags textarea .new-task__tag-btn--high,
+.new-task .new-task__tags .new-task__tags-pick .new-task__tag-btn--high {
+  background: var(--color-blue-100);
+  color: var(--color-white);
+}
+.new-task .new-task__input-name input .new-task__tag-btn--low,
+.new-task .new-task__input-name textarea .new-task__tag-btn--low,
+.new-task .new-task__input-name .new-task__tags-pick .new-task__tag-btn--low,
+.new-task .new-task__input-desc input .new-task__tag-btn--low,
+.new-task .new-task__input-desc textarea .new-task__tag-btn--low,
+.new-task .new-task__input-desc .new-task__tags-pick .new-task__tag-btn--low,
+.new-task .new-task__date input .new-task__tag-btn--low,
+.new-task .new-task__date textarea .new-task__tag-btn--low,
+.new-task .new-task__date .new-task__tags-pick .new-task__tag-btn--low,
+.new-task .new-task__tags input .new-task__tag-btn--low,
+.new-task .new-task__tags textarea .new-task__tag-btn--low,
+.new-task .new-task__tags .new-task__tags-pick .new-task__tag-btn--low {
+  background: var(--color-gray-20);
+}
+.new-task .new-task__btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+.new-task .new-task__btns .new-task__cancel {
+  background: var(--color-gray-10);
+  border: 2px solid var(--color-gray-20);
+}
+.new-task .new-task__btns .new-task__confirm {
+  background: var(--color-gray-50);
+  border: 2px solid var(--color-gray-20);
+  color: var(--color-white);
+}
+.new-task .new-task__btns button {
+  width: 170px;
+  height: 48px;
+  border-radius: 12px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.25rem;
+}
+
+header .header-wrapper {
+  padding: 0px 150px 0px 150px;
+  display: flex;
+  height: 20vh;
+  align-items: center;
+  width: 100vw;
+}
+header .header-wrapper .header-name {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+header .header-wrapper .create-new-task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  box-sizing: border-box;
+  right: 5%;
+  font-size: 1.25rem;
+  color: var(--color-white);
+  width: 180px;
+  height: 48px;
+  background: var(--color-blue-100);
+  border: none;
+  border-radius: 16px;
+}
+
+.tracker {
+  padding: 0px 150px 0px 150px;
+  display: flex;
+  gap: 150px;
+  width: 100%;
+  height: auto;
+}
+.tracker .block-todo,
+.tracker .block-inprogress,
+.tracker .block-done {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  height: auto;
+  width: 400px;
+}
+.tracker .block-todo .header-block,
+.tracker .block-inprogress .header-block,
+.tracker .block-done .header-block {
+  display: flex;
+  align-items: center;
+  border-radius: 16px;
+  padding: 0px 20px 0px 20px;
+  box-sizing: border-box;
+  font-size: 1.25rem;
+  width: 100%;
+  height: 60px;
+}
+.tracker .block-todo .header-block--red,
+.tracker .block-inprogress .header-block--red,
+.tracker .block-done .header-block--red {
+  background: --color-pink-10;
+  border: 2px solid --color-pink-30;
+}
+.tracker .block-todo .header-block--orange,
+.tracker .block-inprogress .header-block--orange,
+.tracker .block-done .header-block--orange {
+  background: --color-orange-10;
+  border: 2px solid --color-orange-30;
+}
+.tracker .block-todo .header-block--blue,
+.tracker .block-inprogress .header-block--blue,
+.tracker .block-done .header-block--blue {
+  background: --color-green-10;
+  border: 2px solid --color-green-30;
+}
+.tracker .block-todo .body-block,
+.tracker .block-inprogress .body-block,
+.tracker .block-done .body-block {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-radius: 16px;
+  width: 100%;
+  min-height: 500px;
+  height: auto;
+  box-sizing: border-box;
+  padding: 15px;
+}
+.tracker .block-todo .body-block .block-tracker,
+.tracker .block-inprogress .body-block .block-tracker,
+.tracker .block-done .body-block .block-tracker {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+  border: 2px solid var(--color-pink-30);
+  border-radius: 16px;
+  box-sizing: border-box;
+  padding: 15px;
+  background: var(--color-white);
+  gap: 25px;
+  max-height: 225px;
+  height: fit-content;
+}
+.tracker .block-todo .body-block .block-tracker .block__tracker-name,
+.tracker .block-inprogress .body-block .block-tracker .block__tracker-name,
+.tracker .block-done .body-block .block-tracker .block__tracker-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.tracker .block-todo .body-block .block-tracker .block__btn-tracker-close,
+.tracker .block-inprogress .body-block .block-tracker .block__btn-tracker-close,
+.tracker .block-done .body-block .block-tracker .block__btn-tracker-close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background: var(--color-pink-30);
+  color: var(--color-pink-100);
+  right: 20px;
+  width: 23px;
+  height: 23px;
+  border: 0px;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+.tracker .block-todo .body-block .block-tracker .block__tracker-end-date,
+.tracker .block-inprogress .body-block .block-tracker .block__tracker-end-date,
+.tracker .block-done .body-block .block-tracker .block__tracker-end-date {
+  font-weight: bold;
+}
+.tracker .block-todo .body-block--red,
+.tracker .block-inprogress .body-block--red,
+.tracker .block-done .body-block--red {
+  background: var(--color-pink-10);
+  border: 2px solid var(--color-pink-30);
+}
+.tracker .block-todo .body-block--orange,
+.tracker .block-inprogress .body-block--orange,
+.tracker .block-done .body-block--orange {
+  background: var(--color-orange-10);
+  border: 2px solid var(--color-orange-30);
+}
+.tracker .block-todo .body-block--blue,
+.tracker .block-inprogress .body-block--blue,
+.tracker .block-done .body-block--blue {
+  background: var(--color-green-10);
+  border: 2px solid var(--color-green-30);
+}
+
+/*# sourceMappingURL=main.css.map */

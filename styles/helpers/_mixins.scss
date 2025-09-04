@@ -1,0 +1,31 @@
+@mixin hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@mixin show {
+    opacity: 1;
+    visibility: visible;
+}
+
+@mixin display-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin abs-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+}
+
+@mixin inputField {
+    border: 1px solid var(--color-gray-20);
+    border-radius: 8px;
+    min-height: 40px;
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-right: 10px;
+}

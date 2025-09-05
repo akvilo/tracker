@@ -16,46 +16,35 @@ function renderTaskList() {
 
     taskList.sort((a, b) => a.index - b.index)
     taskList.forEach((task, i) => {
-        switch (taskList[i].type) {
-            case "todo":  renderToDoTask(task.name, task.desc,task.date, task.priority, i,)
-            break;
+        // switch (taskList[i].type) {
+        //     case "todo":  renderToDoTask(task.name, task.desc,task.date, task.priority, i,)
+        //     break;
 
-            case "inProgress": renderInProgressTask(task.name, task.desc,task.date, task.priority, i,)
-            break;
-        }
+        //     case "inProgress": renderInProgressTask(task.name, task.desc,task.date, task.priority, i,)
+        //     break;
+        // }
+        render(task, i)
     })
 }
 
 renderTaskList()
 
-
-function renderToDoTask(name, desc, date, priority, index) {
-    bodyToDo.insertAdjacentHTML('beforeend', `
-    
-    <div class="block-tracker block-todo__tracker" data-index = "${index}">
-        <span class="block__tracker-name">${name}</span>
+function render(task, i) {
+const container = {
+    todo: bodyToDo,
+    inProgress: bodyInProgress,
+    done: null,
+}[task.type]
+    container.insertAdjacentHTML('beforeend', `
+    <div class="block-tracker block-inprogress__tracker" data-index = "${i}">
+        <span class="block__tracker-name">${task.name}</span>
         <button class="block__btn-tracker-close">x</button>
-        <span class="block__tracker-description">${desc}</span>
+        <span class="block__tracker-description">${task.desc}</span>
         <div class="block__tracker-end-date">
             <span>Дата окончания:</span>
-            <span class = "block__tracker-date">${checkingDate(date)}</span>
+            <span class = "block__tracker-date">${checkingDate(task.date)}</span>
         </div>
-        <div class="block__tracker-priority-${priority}">${priority}</div>
-    </div>
-    `)
-}
-function renderInProgressTask(name, desc, date, priority, index) {
-       bodyInProgress.insertAdjacentHTML('beforeend', `
-    
-    <div class="block-tracker block-inprogress__tracker" data-index = "${index}">
-        <span class="block__tracker-name">${name}</span>
-        <button class="block__btn-tracker-close">x</button>
-        <span class="block__tracker-description">${desc}</span>
-        <div class="block__tracker-end-date">
-            <span>Дата окончания:</span>
-            <span class = "block__tracker-date">${checkingDate(date)}</span>
-        </div>
-        <div class="block__tracker-priority-${priority}">${priority}</div>
+        <div class="block__tracker-priority-${task.priority}">${task.priority}</div>
     </div>
     `)
 }
@@ -171,8 +160,6 @@ function usingTracker(el) {
             let task = JSON.parse(localStorage.getItem(taskList[index].name))
             task.date = userNewDate
             localStorage.setItem(taskList[index].name, JSON.stringify(task))
-            btnsBlock.style.display = 'flex'
-            newDateBlock.style.display = 'none'
             location.reload()
         }
     }

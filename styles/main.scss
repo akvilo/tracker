@@ -17,27 +17,30 @@ button {
     cursor: pointer;
 }
 
-#modalOpacity {
-    display: none;
-    position: fixed;
-    background: rgba(0, 0, 0, 0.5);
-    width: 100vw;
-    height: 100vh;
-    z-index: 1;
-}
-
 .new-task {
-    @include abs-center;
-    display: none;
-    flex-direction: column;
     position: fixed;
+    border: none;
+    padding: 0;
     background: var(--color-white);
-    padding: 15px 20px;
-    box-sizing: border-box;
     width: 420px;
     height: 700px;
+    border-radius: 15px;
     z-index: 2;
-    gap: 15px;
+
+    &::backdrop {
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .new-task__inner {
+        display: flex;
+        @include display-center;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 15px 20px;
+        gap: 15px;
+        width: 100%;
+        height: 100%;
+    }
 
     .new-task__input-name,
     .new-task__input-desc,
@@ -107,19 +110,28 @@ button {
 }
 
 .todo-panel {
-    @include abs-center;
-    align-items: center;
-    display: none;
-    flex-direction: column;
     position: fixed;
-    background: var(--color-white);
-    padding: 15px 20px;
-    box-sizing: border-box;
+    background-color: var(--color-white);
+    padding: 0px;
     width: 400px;
     height: 250px;
-    border-radius: 15px;
+    border: none;
     z-index: 2;
-    gap: 60px;
+    border-radius: 15px;
+
+    &::backdrop {
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .todo-panel__inner {
+        display: flex;
+        @include display-center;
+        box-sizing: border-box;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        gap: 60px;
+    }
 
     .todo-panel__buttons {
         @include display-center;
@@ -321,3 +333,7 @@ header {
             }
         }
     }
+footer {
+    width: 100%;
+    height: 75px;
+}

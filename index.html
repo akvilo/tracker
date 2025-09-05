@@ -8,64 +8,67 @@
         <link rel="stylesheet" href="styles/main.css">
     </head>
     <body>
-        <div id = "modalOpacity"></div>
-        <form class="new-task">
-            <h3 style="font-family: 'Inter'">New task</h3>
-            <div class="new-task__input-name">
-                <span>Task name</span>
-                <input 
-                id = "inputTaskName"
-                type="text"
-                required
+        <dialog class="new-task">
+            <form class="new-task__inner">
+                <h3 style="font-family: 'Inter'">New task</h3>
+                <div class="new-task__input-name">
+                    <span>Task name</span>
+                    <input 
+                    id = "inputTaskName"
+                    type="text"
+                    required
+                    >
+                </div>
+                <div class="new-task__input-desc">
+                    <span>Task description</span>
+                    <textarea 
+                    rows = "15"
+                    id="inputTaskDesc"
+                    required
+                    ></textarea>
+                </div>
+                <div class="new-task__date">
+                    <span>Due date</span>
+                    <input 
+                    type="date"
+                    id = "inputTaskDate"
+                    >
+                </div>
+                <div class="new-task__tags">
+                    <span>Tags(Choose one)</span>
+                    <div class="new-task__tags-pick">
+                        <button type="button"
+                        class="new-task__tag-btn new-task__tag-btn--mid">mid</button>
+                        <button type="button"
+                        class="new-task__tag-btn new-task__tag-btn--high">high</button>
+                        <button type="button"
+                        class="new-task__tag-btn new-task__tag-btn--low">low</button>
+                    </div>
+                </div>
+                <div class="new-task__btns">
+                    <button class="new-task__cancel">Cancel</button>
+                    <button class="new-task__confirm">Confirm</button>
+                </div>
+            </form>
+        </dialog>
+        <dialog class="todo-panel">
+            <div class="todo-panel__inner">
+                <span>Выбертие действие</span>
+                <div class="todo-panel__buttons">
+                    <button class="todo-panel__btn-change-date">Редактировать дату</button>
+                    <button class="todo-panel__btn-move">Начать цель!</button>
+                </div>
+                <div class="todo-panel__new-date-block" 
+                style="display: none"
                 >
-            </div>
-            <div class="new-task__input-desc">
-                <span>Task description</span>
-                <textarea 
-                rows = "15"
-                id="inputTaskDesc"
-                required
-                ></textarea>
-            </div>
-            <div class="new-task__date">
-                <span>Due date</span>
-                <input 
-                type="date"
-                id = "inputTaskDate"
-                >
-            </div>
-            <div class="new-task__tags">
-                <span>Tags(Choose one)</span>
-                <div class="new-task__tags-pick">
-                    <button type="button"
-                    class="new-task__tag-btn new-task__tag-btn--mid">mid</button>
-                    <button type="button"
-                    class="new-task__tag-btn new-task__tag-btn--high">high</button>
-                    <button type="button"
-                    class="new-task__tag-btn new-task__tag-btn--low">low</button>
+                    <input 
+                    type="date" 
+                    class="todo-panel__new-date-input"
+                    >
+                    <button class="todo-panel_new-date-accept">Продолжить</button>
                 </div>
             </div>
-            <div class="new-task__btns">
-                <button class="new-task__cancel">Cancel</button>
-                <button class="new-task__confirm">Confirm</button>
-            </div>
-        </form>
-        <div class="todo-panel">
-            <span>Выбертие действие</span>
-            <div class="todo-panel__buttons">
-                <button class="todo-panel__btn-change-date">Редактировать дату</button>
-                <button class="todo-panel__btn-move">Начать цель!</button>
-            </div>
-            <div class="todo-panel__new-date-block" 
-            style="display: none"
-            >
-                <input 
-                type="date" 
-                class="todo-panel__new-date-input"
-                >
-                <button class="todo-panel_new-date-accept">Продолжить</button>
-            </div>
-        </div>
+        </dialog>
         <header>
             <div class="header-wrapper">
                 <h1 class = "header-name">TASK TRACKER</h1>
@@ -97,6 +100,9 @@
                 </div>
             </div>
         </section>
+        <footer>
+            
+        </footer>
         <script src="script/script.js"></script>
     </body>
 </html>

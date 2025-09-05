@@ -1,8 +1,3 @@
-const btnCreateTask = document.querySelector('.create-new-task')
-const opacity = document.getElementById('modalOpacity')
-const taskMenu = document.querySelector('.new-task')
-const btnCancel = document.querySelector('.new-task__cancel')
-
 const bodyToDo = document.querySelector('.body-block--red')
 const bodyInProgress = document.querySelector('.body-block--orange  ')
 sessionStorage.setItem('taskPriority', '?')
@@ -74,28 +69,23 @@ function checkingDate(date) {
     }
 }
 
-
-btnCreateTask.addEventListener('click', () => openActiveModal(taskMenu))
-
-btnCancel.addEventListener('click', () => closeActiveModal())
-
-modalOpacity.addEventListener('click', () => closeActiveModal())
-
-function openActiveModal(el) {
-    el.style.display = 'flex'
-    el.setAttribute('data-modal', 'active')
-    opacity.style.display = 'flex'
-}
-function closeActiveModal() {
-    const activeModal = document.querySelector('[data-modal="active"]')
-    activeModal.style.display = 'none'
-    activeModal.dataset.modal = "inactive"
-    opacity.style.display = 'none'
+function clickBackOnDrop(el, event) {
+    const modal = event.currentTarget
+    const isClickBackOnDrop = event.target === modal
+    if(isClickBackOnDrop) el.close()
 }
 
 
+const btnCreateTask = document.querySelector('.create-new-task')
+const taskMenu = document.querySelector('.new-task')
 
+btnCreateTask.onclick = () => taskMenu.showModal(open)
+taskMenu.addEventListener('click', (e) => {
+    clickBackOnDrop(taskMenu, e)
+}) 
 
+const btnNewTaskCancel = document.querySelector('.new-task__cancel')
+btnNewTaskCancel.onclick = () => taskMenu.close()
 
 const btnTaskPriority = document.querySelectorAll('.new-task__tag-btn')
 
@@ -104,12 +94,6 @@ btnTaskPriority.forEach((btn) => {
         sessionStorage.setItem('taskPriority', btn.textContent)
     })
 })
-
-
-
-
-
-
 
 
 const btnTaskConfirm = document.querySelector('.new-task__confirm') 
@@ -135,7 +119,6 @@ function confirmTask() {
 
     if (inputTaskName != "" && inputTaskDesc != "") {
         const createTask = new Task(inputTaskName, inputTaskDesc, inputTaskDate, taskPriorityValue, 'todo', taskList.length)
-        // taskList.push(createTask)
         localStorage.setItem(inputTaskName, JSON.stringify(createTask))
     }
 }
@@ -156,7 +139,6 @@ btnDeleteTracker.forEach((btn, index) => {
 
 
 
-
 // взаимоедйствие с трекером
 
 const blockTracker = document.querySelectorAll('.block-tracker')
@@ -170,13 +152,10 @@ blockTracker.forEach((block) => {
 
 function usingTracker(el) {
     const index = el.dataset.index
-    if (el.classList.contains('block-todo__tracker')) {
-        todoMoveModal()
-    }   
-    
-    function todoMoveModal() {
-        openActiveModal(todoPanel)
-    }
+    todoPanel.showModal(open)
+    todoPanel.addEventListener('click', (e) => {
+        clickBackOnDrop(todoPanel, e)
+    })
 
 
     btnChangeDate.onclick = function() {
@@ -192,7 +171,6 @@ function usingTracker(el) {
             let task = JSON.parse(localStorage.getItem(taskList[index].name))
             task.date = userNewDate
             localStorage.setItem(taskList[index].name, JSON.stringify(task))
-            closeActiveModal()
             btnsBlock.style.display = 'flex'
             newDateBlock.style.display = 'none'
             location.reload()

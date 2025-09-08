@@ -17,6 +17,10 @@ button {
     cursor: pointer;
 }
 
+textarea {
+    resize: none;
+}
+
 .new-task {
     position: fixed;
     border: none;
@@ -109,7 +113,8 @@ button {
         }
 }
 
-.todo-panel {
+.todo-panel,
+.inprogress-panel  {
     position: fixed;
     background-color: var(--color-white);
     padding: 0px;
@@ -123,8 +128,8 @@ button {
         background: rgba(0, 0, 0, 0.5);
     }
 
-    .todo-panel__inner {
-        display: flex;
+    .todo-panel__inner,
+    .inprogress__inner  {
         @include display-center;
         box-sizing: border-box;
         flex-direction: column;
@@ -144,7 +149,6 @@ button {
     .todo-panel__btn-change-date,
     .todo-panel__btn-move {
         @include display-center;
-        display: flex;
         width: 35%;
         height: 40px;
         border-radius: 5px;
@@ -175,6 +179,20 @@ button {
     }
 }
 
+.inprogress-panel {
+    width: 250px;
+    height: 150px;
+
+    .inprogress__btn-complete {
+        @include display-center;
+        border: none;
+        outline: none;
+        border-radius: 8px;
+        width: 100px;
+        height: 35px;
+        background: var(--color-blue-50)
+    }
+}
 
 header {
 
@@ -264,7 +282,6 @@ header {
                     flex-direction: column;
                     cursor: pointer;
                     width: 100%;
-                    border: 2px solid var(--color-pink-30);
                     border-radius: 16px;
                     box-sizing: border-box;
                     padding: 15px;
@@ -317,17 +334,21 @@ header {
                     }
                 }
             }
-            .body-block--red {
+            .body-block--red,
+            .block-todo__tracker
+             {
                     background: var(--color-pink-10);
                     border: 2px solid var(--color-pink-30);
                 }
 
-            .body-block--orange {
+            .body-block--orange,
+            .block-inProgress__tracker {
                 background: var(--color-orange-10);
                 border: 2px solid var(--color-orange-30);
             }
 
-            .body-block--blue {
+            .body-block--blue,
+            .block-done__tracker {
                 background: var(--color-green-10);
                 border: 2px solid var(--color-green-30);
             }

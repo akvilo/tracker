@@ -1,12 +1,14 @@
 const bodyToDo = document.querySelector('.body-block--red')
-const bodyInProgress = document.querySelector('.body-block--orange  ')
+const bodyInProgress = document.querySelector('.body-block--orange')
+const bodyDone = document.querySelector('.body-block--blue')
 sessionStorage.setItem('taskPriority', '?')
-
 
 let taskList = []
 function renderTaskList() {
     bodyToDo.innerHTML = ''
-
+    bodyInProgress.innerHTML = ''
+    bodyDone.innerHTML = ''
+    
     taskList = []
     for(let i = 0; i< localStorage.length; i++) {
         let key = localStorage.key(i)
@@ -16,27 +18,19 @@ function renderTaskList() {
 
     taskList.sort((a, b) => a.index - b.index)
     taskList.forEach((task, i) => {
-        // switch (taskList[i].type) {
-        //     case "todo":  renderToDoTask(task.name, task.desc,task.date, task.priority, i,)
-        //     break;
-
-        //     case "inProgress": renderInProgressTask(task.name, task.desc,task.date, task.priority, i,)
-        //     break;
-        // }
         render(task, i)
     })
 }
-
 renderTaskList()
 
 function render(task, i) {
 const container = {
     todo: bodyToDo,
     inProgress: bodyInProgress,
-    done: null,
+    done: bodyDone,
 }[task.type]
     container.insertAdjacentHTML('beforeend', `
-    <div class="block-tracker block-inprogress__tracker" data-index = "${i}">
+    <div class="block-tracker block-${task.type}__tracker" data-index = "${i}">
         <span class="block__tracker-name">${task.name}</span>
         <button class="block__btn-tracker-close">x</button>
         <span class="block__tracker-description">${task.desc}</span>
@@ -113,39 +107,42 @@ function confirmTask() {
 }
 
 
-
-
-const btnDeleteTracker = document.querySelectorAll('.block__btn-tracker-close')
-
-btnDeleteTracker.forEach((btn, index) => {
-    const trackerName = document.querySelectorAll('.block__tracker-name')
-    btn.addEventListener('click', (el) => {
-        el.stopPropagation()
-        localStorage.removeItem(trackerName[index].textContent)
-        location.reload()
-    })
-})
-
-
-
-// взаимоедйствие с трекером
-
-const blockTracker = document.querySelectorAll('.block-tracker')
-const todoPanel = document.querySelector('.todo-panel')
 const btnChangeDate = document.querySelector('.todo-panel__btn-change-date')
 const btnStartGoal = document.querySelector('.todo-panel__btn-move')
+const bodyTracker = document.querySelector('.tracker')
+const btnCompleteTask = document.querySelector('.inprogress__btn-complete')
 
-blockTracker.forEach((block) => {
-    block.onclick = () => usingTracker(block)
+bodyTracker.addEventListener('click', (e) => { 
+    const trackerELement = e.target.closest('.block-tracker')
+    const container = {
+        todo: bodyToDo,
+        inProgress: bodyInProgress,
+        done: bodyDone,
+    }[taskList[trackerELement.dataset.index].type]
+    
+    if (e.target.classList.contains('block__btn-tracker-close')) {
+        const index = (e.target.closest('.block-tracker').dataset.index)
+        localStorage.removeItem(taskList[index].name)
+        renderTaskList()
+    }
+    else if (trackerELement) usingTracker(trackerELement) 
 })
 
 function usingTracker(el) {
+    const todoPanel = document.querySelector('.todo-panel')
+    const inProgressPanel = document.querySelector('.inprogress-panel')
     const index = el.dataset.index
-    todoPanel.showModal(open)
-    todoPanel.addEventListener('click', (e) => {
-        clickBackOnDrop(todoPanel, e)
-    })
+    const container = {
+        todo: todoPanel,
+        inProgress: inProgressPanel,
+        done: null,
+    }[taskList[index].type]
 
+    container.showModal(open)
+    container.addEventListener('click', (e) => {
+        clickBackOnDrop(container, e)
+    })
+    
 
     btnChangeDate.onclick = function() {
         const btnsBlock = document.querySelector('.todo-panel__buttons')
@@ -160,7 +157,8 @@ function usingTracker(el) {
             let task = JSON.parse(localStorage.getItem(taskList[index].name))
             task.date = userNewDate
             localStorage.setItem(taskList[index].name, JSON.stringify(task))
-            location.reload()
+            todoPanel.close()
+            renderTaskList()
         }
     }
 
@@ -168,6 +166,15 @@ function usingTracker(el) {
         let task = JSON.parse(localStorage.getItem(taskList[index].name))
         task.type = 'inProgress'
         localStorage.setItem(taskList[index].name, JSON.stringify(task))
-        location.reload()
+        todoPanel.close()
+        renderTaskList()
+    }
+
+      btnCompleteTask.onclick = function() {
+        let task = JSON.parse(localStorage.getItem(taskList[index].name))
+        task.type = 'done'
+        localStorage.setItem(taskList[index].name, JSON.stringify(task))
+        inProgressPanel.close()
+        renderTaskList()
     }
 }

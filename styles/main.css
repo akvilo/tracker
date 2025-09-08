@@ -75,6 +75,10 @@ button {
   cursor: pointer;
 }
 
+textarea {
+  resize: none;
+}
+
 .new-task {
   position: fixed;
   border: none;
@@ -224,7 +228,8 @@ button {
   font-size: 1.25rem;
 }
 
-.todo-panel {
+.todo-panel,
+.inprogress-panel {
   position: fixed;
   background-color: var(--color-white);
   padding: 0px;
@@ -234,11 +239,14 @@ button {
   z-index: 2;
   border-radius: 15px;
 }
-.todo-panel::backdrop {
+.todo-panel::backdrop,
+.inprogress-panel::backdrop {
   background: rgba(0, 0, 0, 0.5);
 }
-.todo-panel .todo-panel__inner {
-  display: flex;
+.todo-panel .todo-panel__inner,
+.todo-panel .inprogress__inner,
+.inprogress-panel .todo-panel__inner,
+.inprogress-panel .inprogress__inner {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -248,7 +256,8 @@ button {
   height: 100%;
   gap: 60px;
 }
-.todo-panel .todo-panel__buttons {
+.todo-panel .todo-panel__buttons,
+.inprogress-panel .todo-panel__buttons {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -258,31 +267,36 @@ button {
   gap: 25px;
 }
 .todo-panel .todo-panel__btn-change-date,
-.todo-panel .todo-panel__btn-move {
+.todo-panel .todo-panel__btn-move,
+.inprogress-panel .todo-panel__btn-change-date,
+.inprogress-panel .todo-panel__btn-move {
   display: flex;
   justify-content: center;
   align-items: center;
-  display: flex;
   width: 35%;
   height: 40px;
   border-radius: 5px;
   border: none;
 }
-.todo-panel .todo-panel__btn-change-date {
+.todo-panel .todo-panel__btn-change-date,
+.inprogress-panel .todo-panel__btn-change-date {
   background: var(--color-orange-30);
 }
-.todo-panel .todo-panel__btn-move {
+.todo-panel .todo-panel__btn-move,
+.inprogress-panel .todo-panel__btn-move {
   background: var(--color-blue-50);
   color: var(--color-white);
 }
-.todo-panel .todo-panel__new-date-block {
+.todo-panel .todo-panel__new-date-block,
+.inprogress-panel .todo-panel__new-date-block {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 35px;
 }
-.todo-panel .todo-panel__new-date-block .todo-panel_new-date-accept {
+.todo-panel .todo-panel__new-date-block .todo-panel_new-date-accept,
+.inprogress-panel .todo-panel__new-date-block .todo-panel_new-date-accept {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -292,6 +306,22 @@ button {
   height: 40px;
   border-radius: 5px;
   border: none;
+}
+
+.inprogress-panel {
+  width: 250px;
+  height: 150px;
+}
+.inprogress-panel .inprogress__btn-complete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  width: 100px;
+  height: 35px;
+  background: var(--color-blue-50);
 }
 
 header .header-wrapper {
@@ -387,7 +417,6 @@ header .header-wrapper .create-new-task:active {
   flex-direction: column;
   cursor: pointer;
   width: 100%;
-  border: 2px solid var(--color-pink-30);
   border-radius: 16px;
   box-sizing: border-box;
   padding: 15px;
@@ -457,20 +486,29 @@ header .header-wrapper .create-new-task:active {
   background: var(--color-blue-100);
 }
 .tracker .block-todo .body-block--red,
+.tracker .block-todo .block-todo__tracker,
 .tracker .block-inprogress .body-block--red,
-.tracker .block-done .body-block--red {
+.tracker .block-inprogress .block-todo__tracker,
+.tracker .block-done .body-block--red,
+.tracker .block-done .block-todo__tracker {
   background: var(--color-pink-10);
   border: 2px solid var(--color-pink-30);
 }
 .tracker .block-todo .body-block--orange,
+.tracker .block-todo .block-inProgress__tracker,
 .tracker .block-inprogress .body-block--orange,
-.tracker .block-done .body-block--orange {
+.tracker .block-inprogress .block-inProgress__tracker,
+.tracker .block-done .body-block--orange,
+.tracker .block-done .block-inProgress__tracker {
   background: var(--color-orange-10);
   border: 2px solid var(--color-orange-30);
 }
 .tracker .block-todo .body-block--blue,
+.tracker .block-todo .block-done__tracker,
 .tracker .block-inprogress .body-block--blue,
-.tracker .block-done .body-block--blue {
+.tracker .block-inprogress .block-done__tracker,
+.tracker .block-done .body-block--blue,
+.tracker .block-done .block-done__tracker {
   background: var(--color-green-10);
   border: 2px solid var(--color-green-30);
 }
